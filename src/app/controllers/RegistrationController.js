@@ -1,12 +1,12 @@
 import * as Yup from 'yup';
-import { addMonths, parseISO, format } from 'date-fns';
-import ptLang from 'date-fns/locale/pt';
+import { addMonths, parseISO } from 'date-fns';
 
 import Registration from '../models/Registration';
 import Plan from '../models/Plan';
 import Student from '../models/Student';
 
-import Mail from '../../lib/Mail';
+import Queue from '../../lib/Queue';
+import RegistrationMail from '../jobs/RegistrationMail';
 
 class RegistrationController {
   async index(req, res) {
@@ -51,20 +51,10 @@ class RegistrationController {
 
     const student = await Student.findByPk(student_id);
 
-    Mail.sendMail({
-      to: `${student.name} <${student.email}>`,
-      subject: 'Seja bem vindo',
-      template: 'registration',
-      context: {
-        student,
-        plan,
-        date_registration: format(Date.now(), "dd 'de' MMMM", {
-          locale: ptLang,
-        }),
-        start_date: format(parseISO(start_date), "dd 'de' MMMM", {
-          locale: ptLang,
-        }),
-      },
+    await Queue.addJob(RegistrationMail.key, {
+      student,
+      start_date,
+      plan,
     });
 
     return res.json(registration);
