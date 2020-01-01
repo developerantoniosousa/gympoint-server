@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 
 import Student from '../models/Student';
 
@@ -13,6 +14,25 @@ const studentSchema = Yup.object().shape({
 });
 
 class StudentController {
+  async index(req, res) {
+    let where = {};
+
+    const name = req.query.q;
+    if (name) {
+      where = {
+        name: {
+          [Op.like]: `%${name}%`,
+        },
+      };
+    }
+
+    const students = await Student.findAll({
+      where,
+    });
+
+    return res.json(students);
+  }
+
   async store(req, res) {
     if (!(await studentSchema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails' });
