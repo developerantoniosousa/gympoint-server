@@ -33,6 +33,12 @@ class StudentController {
     return res.json(students);
   }
 
+  async show(req, res) {
+    const student = await Student.findByPk(req.params.id);
+
+    return res.json(student);
+  }
+
   async store(req, res) {
     if (!(await studentSchema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails' });
