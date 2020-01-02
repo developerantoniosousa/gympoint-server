@@ -1,4 +1,4 @@
-import { subDays, parseISO } from 'date-fns';
+import { subDays } from 'date-fns';
 import { Op } from 'sequelize';
 
 import Checkin from '../models/Checkin';
@@ -7,6 +7,7 @@ class CheckinController {
   async index(req, res) {
     const checkins = await Checkin.findAll({
       where: { student_id: req.params.studentId },
+      order: [['created_at', 'DESC']],
     });
 
     return res.json(checkins);
