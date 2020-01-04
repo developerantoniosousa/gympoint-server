@@ -78,6 +78,12 @@ class StudentController {
 
     return res.json(student);
   }
+
+  async delete(req, res) {
+    await Student.destroy({ where: { id: req.params.id } });
+
+    return res.send();
+  }
 }
 
 export default new StudentController();
