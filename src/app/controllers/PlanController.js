@@ -15,6 +15,12 @@ class PlanController {
     return res.json(plans);
   }
 
+  async show(req, res) {
+    const plan = await Plan.findByPk(req.params.id);
+
+    return res.json(plan);
+  }
+
   async store(req, res) {
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails' });

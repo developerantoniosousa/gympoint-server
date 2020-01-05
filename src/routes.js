@@ -30,6 +30,7 @@ routes.get('/help-orders', SupportHelpOrderController.index);
 routes.put('/help-orders/:id/answer', SupportHelpOrderController.update);
 
 routes.get('/plans', PlanController.index);
+routes.get('/plans/:id', PlanController.show);
 routes.post('/plans', PlanController.store);
 routes.put('/plans/:id', PlanController.update);
 routes.delete('/plans/:id', PlanController.delete);
