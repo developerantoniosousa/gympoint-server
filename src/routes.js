@@ -14,17 +14,18 @@ const routes = new express.Router();
 
 routes.post('/sessions', SessionController.store);
 
-routes.use(authMiddleware);
-
-routes.get('/students', StudentController.index);
 routes.get('/students/:id', StudentController.show);
-routes.post('/students', StudentController.store);
-routes.put('/students/:id', StudentController.update);
-routes.delete('/students/:id', StudentController.delete);
 routes.get('/students/:studentId/checkins', CheckinController.index);
 routes.post('/students/:studentId/checkins', CheckinController.store);
 routes.get('/students/:studentId/help-orders', HelpOrderController.index);
 routes.post('/students/:studentId/help-orders', HelpOrderController.store);
+
+routes.use(authMiddleware);
+
+routes.get('/students', StudentController.index);
+routes.post('/students', StudentController.store);
+routes.put('/students/:id', StudentController.update);
+routes.delete('/students/:id', StudentController.delete);
 
 routes.get('/help-orders', SupportHelpOrderController.index);
 routes.put('/help-orders/:id/answer', SupportHelpOrderController.update);
