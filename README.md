@@ -32,6 +32,6 @@ $ npx sequelize db:seed:all
 # Executando a aplicação
 
 ```
-$ npx run queue
+$ npm run queue
 $ npm run dev
 ```
