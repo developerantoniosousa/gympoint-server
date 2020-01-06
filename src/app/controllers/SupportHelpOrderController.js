@@ -15,6 +15,13 @@ class SupportHelpOrderController {
       order: [['created_at', 'DESC']],
       limit: 20,
       offset: (page - 1) * 20,
+      include: [
+        {
+          model: Student,
+          as: 'student',
+          attributes: ['id', 'name'],
+        },
+      ],
     });
 
     return res.json(helpOrders);
