@@ -107,7 +107,7 @@ class RegistrationController {
       return res.status(401).json({ error: 'Registration not exists' });
     }
 
-    const { plan_id, start_date } = req.body;
+    const { student_id, plan_id, start_date } = req.body;
 
     const plan = await Plan.findByPk(plan_id);
     if (!plan) {
@@ -122,6 +122,10 @@ class RegistrationController {
     if (plan_id !== registration.plan_id) {
       registration.plan_id = plan_id;
       registration.price = plan.duration * plan.price;
+    }
+
+    if (student_id !== registration.student_id) {
+      registration.student_id = student_id;
     }
 
     await registration.save();
