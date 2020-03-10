@@ -1,35 +1,35 @@
-# Gympoint Servidor
+# Gympoint Server
 
-## instalação
+### Installation
 
-# Baixe o projeto
+### Download the project
 
 ```
 $ git clone https://github.com/developerantoniosousa/gympoint-server
 ```
 
-Defina as variáveis ambiente, basta fazer uma cópia do arquivo .env.example para .env e definir as suas configurações.
-`Nota: utilize banco de dados relacional`
+Set the environment variables, just make a copy of the .env.example file to .env and define your settings.
+`Note: use relational database`
 
-# Instalação das dependências
+### Installation of dependencies
 
 ```
 $ npm i
 ```
 
-# Criando as tabelas no banco de dados
+### Creating the tables in the database
 
 ```
 $ npx sequelize db:migrate
 ```
 
-# Criando usuário administrador
+### Creating administrator user
 
 ```
 $ npx sequelize db:seed:all
 ```
 
-# Executando a aplicação
+### Running the application
 
 ```
 $ npm run queue
